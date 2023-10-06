@@ -15,7 +15,8 @@
     "merkletreejs": "^0.2.13"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.9.3"
+    "@openzeppelin/contracts": "^4.9.3",
+    "csv-parser": "^3.0.0"
   }
   
 }
