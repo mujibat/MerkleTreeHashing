@@ -19,7 +19,7 @@ contract MerkleTreeTest is Test {
 
     address user1 = 0xEB7A41D324ee4859E3cbFAd4b3820B82FCCe6658;
     address randomaddr = 0x0c404F55595ab844D519a084fF1B8cB36AAAD1d1;
-    uint user1Amt = 45000000000000;
+    // uint user1Amt = 45000000000000;
 
     Merkle public merkle;
 
@@ -37,26 +37,12 @@ contract MerkleTreeTest is Test {
         console2.logBytes32(merkle.leaf);
     }
 
-
-    function testUserCantClaimTwice() public {
+    function testHasClaimed() public {
         vm.prank(user1);
-        testClaim();
-        vm.expectRevert("You have already claimed!");
-        // testClaim();
+        merkletree.checkInWhitelist(merkle.proof);
+        assertEq(merkletree.whitelistClaimed(user1), true);
+        
     }
-
-    // function testClaim() public {
-    //     bool success = _claim();
-    //     assertEq(merkletree.balanceOf(user1), user1Amt);
-
-    //     assertTrue(success);
-    // }
-    // function testHasClaimed() public {
-    //     vm.prank(randomaddr);
-    //     assertEq(merkletree.whitelistClaimed(randomaddr), true);
-    //     vm.expectRevert("You have already claimed!");
-    //     //  testClaim();
-    // }
     function testClaim() public {
         vm.prank(user1);
         merkletree.checkInWhitelist(merkle.proof);
